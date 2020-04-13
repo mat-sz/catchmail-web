@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import './App.scss';
 
 import { StateType } from './reducers';
+import { title } from './config';
 import EmailTable from './components/EmailTable';
 
 const App: React.FC = () => {
@@ -11,9 +12,16 @@ const App: React.FC = () => {
 
   return (
     <div className="app">
-      <EmailTable />
+      <div className="list">
+        <h1>{title}</h1>
+        <EmailTable />
+      </div>
       {selectedEmail ? (
-        <Letter html={selectedEmail.html ?? ''} text={selectedEmail.text} />
+        <Letter
+          html={selectedEmail.html ?? ''}
+          text={selectedEmail.text}
+          className="preview"
+        />
       ) : null}
     </div>
   );
