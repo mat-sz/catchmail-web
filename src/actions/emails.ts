@@ -14,3 +14,10 @@ export function removeEmailAction(emailId: string): ActionModel {
     value: emailId,
   };
 }
+
+export function selectEmailAction(emailId: string): ActionModel {
+  return {
+    type: ActionType.SELECT_EMAIL,
+    value: emailId,
+  };
+}

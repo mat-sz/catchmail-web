@@ -4,9 +4,10 @@ import { Store } from 'redux';
 
 export interface StateType {
   connected: boolean;
-  error: string | undefined;
-  clientId: string | undefined;
+  error?: string;
+  clientId?: string;
   emails: EmailModel[];
+  selectedEmail?: EmailModel;
 }
 
 let initialState: StateType = {
@@ -14,6 +15,7 @@ let initialState: StateType = {
   error: undefined,
   clientId: undefined,
   emails: [],
+  selectedEmail: undefined,
 };
 
 export type StoreType = Store<StateType, ActionModel>;
@@ -41,13 +43,14 @@ function applicationState(state = initialState, action: ActionModel) {
         email => email.id !== action.value
       );
       break;
+    case ActionType.SELECT_EMAIL:
+      newState.selectedEmail = newState.emails.find(
+        email => email.id === action.value
+      );
+      break;
     default:
       return state;
   }
-
-  newState.emails = newState.emails.sort((a, b) => {
-    return b.date.getTime() - a.date.getTime();
-  });
 
   return newState;
 }
