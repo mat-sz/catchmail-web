@@ -28,8 +28,8 @@ function* message(action: ActionModel, dispatch: (action: any) => void) {
     case MessageType.MAIL:
       const email: EmailModel = {
         id: uuid(),
-        date: new Date(),
         ...msg,
+        date: msg.date ? new Date(msg.date) : new Date(),
         read: false,
       };
 

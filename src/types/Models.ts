@@ -26,7 +26,7 @@ export interface MailMessageModel extends MessageModel {
   to?: string[];
   cc?: string[];
   bcc?: string[];
-  date?: Date;
+  date?: string;
   html?: string;
   text?: string;
 }
