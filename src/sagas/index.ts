@@ -30,6 +30,7 @@ function* message(action: ActionModel, dispatch: (action: any) => void) {
         id: uuid(),
         date: new Date(),
         ...msg,
+        read: false,
       };
 
       yield put(addEmailAction(email));
@@ -56,7 +57,9 @@ function* disconnected() {
 }
 
 function* updateNotificationCount() {
-  const emails: EmailModel[] = yield select((state: StateType) => state.emails);
+  const emails: EmailModel[] = (yield select(
+    (state: StateType) => state.emails
+  )).filter((email: EmailModel) => !email.read);
 
   if (emails.length > 0) {
     document.title = '(' + emails.length + ') ' + process.env.REACT_APP_TITLE;
@@ -74,7 +77,7 @@ export default function* root(dispatch: (action: any) => void) {
   yield takeEvery(ActionType.WS_DISCONNECTED, disconnected);
 
   yield takeEvery(
-    [ActionType.ADD_EMAIL, ActionType.REMOVE_EMAIL],
+    [ActionType.ADD_EMAIL, ActionType.REMOVE_EMAIL, ActionType.SELECT_EMAIL],
     updateNotificationCount
   );
 }

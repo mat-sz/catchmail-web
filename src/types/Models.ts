@@ -52,4 +52,5 @@ export interface EmailModel {
   date: Date;
   html?: string;
   text?: string;
+  read: boolean;
 }

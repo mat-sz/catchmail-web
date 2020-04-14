@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import clsx from 'clsx';
 
 import { selectEmailAction } from '../actions/emails';
 import { EmailModel } from '../types/Models';
@@ -11,12 +12,17 @@ export interface EmailTableRowProps {
 
 const EmailTableRow: React.FC<EmailTableRowProps> = ({ email }) => {
   const selectedEmail = useSelector((state: StateType) => state.selectedEmail);
-  const isSelected = selectedEmail?.id === email.id;
   const dispatch = useDispatch();
   const selectEmail = () => dispatch(selectEmailAction(email.id));
 
   return (
-    <tr onClick={selectEmail} className={isSelected ? 'selected' : ''}>
+    <tr
+      onClick={selectEmail}
+      className={clsx({
+        selected: selectedEmail?.id === email.id,
+        read: email.read,
+      })}
+    >
       <td>{email.from}</td>
       <td>{email.to?.join(' ')}</td>
       <td>{email.subject}</td>

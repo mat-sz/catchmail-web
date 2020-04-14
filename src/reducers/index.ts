@@ -47,6 +47,15 @@ function applicationState(state = initialState, action: ActionModel) {
       newState.selectedEmail = newState.emails.find(
         email => email.id === action.value
       );
+      if (!newState.selectedEmail?.read) {
+        newState.emails = newState.emails.map(email => {
+          if (email.id === action.value) {
+            email.read = true;
+          }
+
+          return email;
+        });
+      }
       break;
     default:
       return state;

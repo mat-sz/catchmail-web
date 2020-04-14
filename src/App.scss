@@ -39,11 +39,17 @@ body {
       th {
         background: #222;
         color: #fff;
-        font-weight: normal;
+        font-weight: 600;
       }
 
       tr {
         cursor: pointer;
+        font-weight: 600;
+
+        &.read {
+          font-weight: normal;
+          color: #333;
+        }
       }
 
       tr:nth-child(2n) td {
