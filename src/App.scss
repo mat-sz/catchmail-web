@@ -88,6 +88,12 @@ body {
     overflow-y: scroll;
     overflow-x: auto;
 
+    & > pre {
+      padding: 20px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
     & > h2 {
       font-weight: 600;
       padding: 20px;
@@ -117,14 +123,19 @@ body {
         border-radius: 40px;
       }
 
-      .date {
-        text-align: right;
+      .small {
+        margin-top: -2px;
+        font-size: 14px;
       }
 
-      .address {
-        .to {
-          margin-top: -2px;
-          font-size: 14px;
+      .right {
+        text-align: right;
+
+        button {
+          background: none;
+          border: none;
+          cursor: pointer;
+          padding: 0;
         }
       }
     }
