@@ -19,6 +19,11 @@ body {
   display: grid;
   grid-template-columns: 1fr 2fr;
   overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 
   .list {
     position: relative;
@@ -39,6 +44,37 @@ body {
       font-weight: 600;
       padding: 10px;
       background: rgba(255, 255, 255, 0.4);
+    }
+
+    .authentication {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 500;
+      color: white;
+      text-align: center;
+
+      & > * {
+        display: block;
+      }
+
+      input {
+        background: #f1f1f1;
+        border: none;
+        padding: 10px;
+        margin: 10px auto;
+      }
+
+      button {
+        background: #ddd;
+        border: none;
+        padding: 10px;
+        margin: 10px auto;
+        cursor: pointer;
+      }
     }
 
     table {

@@ -45,6 +45,7 @@ export interface AuthenticationRequestMessageModel extends MessageModel {
 export interface AuthenticationResponseMessageModel extends MessageModel {
   type: MessageType.AUTHENTICATION_RESPONSE;
   success: boolean;
+  authenticationMode: string;
 }
 
 export type Message =

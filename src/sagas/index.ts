@@ -28,13 +28,26 @@ function* message(action: ActionModel, dispatch: (action: any) => void) {
     case MessageType.WELCOME:
       yield put(setClientIdAction(msg.clientId));
       yield put(setAuthenticatedAction(false));
-      if (msg.authenticationMode === 'none') {
-        const authMessage: AuthenticationRequestMessageModel = {
-          type: MessageType.AUTHENTICATION_REQUEST,
-        };
-        yield put(sendMessageAction(authMessage));
-      } else {
-        yield put(setAuthenticationRequiredAction(msg.authenticationMode));
+      switch (msg.authenticationMode) {
+        case 'none':
+          const authMessage: AuthenticationRequestMessageModel = {
+            type: MessageType.AUTHENTICATION_REQUEST,
+          };
+          yield put(sendMessageAction(authMessage));
+          break;
+        case 'secret':
+          if (localStorage.getItem('catchmail_secret')) {
+            const authMessage: AuthenticationRequestMessageModel = {
+              type: MessageType.AUTHENTICATION_REQUEST,
+              secret: localStorage.getItem('catchmail_secret') as string,
+            };
+            yield put(sendMessageAction(authMessage));
+          } else {
+            yield put(setAuthenticationRequiredAction(msg.authenticationMode));
+          }
+          break;
+        default:
+          yield put(setAuthenticationRequiredAction(msg.authenticationMode));
       }
       break;
     case MessageType.MAIL:
@@ -59,8 +72,21 @@ function* message(action: ActionModel, dispatch: (action: any) => void) {
       break;
     case MessageType.AUTHENTICATION_RESPONSE:
       yield put(setAuthenticatedAction(msg.success));
+      if (!msg.success) {
+        localStorage.removeItem('catchmail_secret');
+        yield put(setAuthenticationRequiredAction(msg.authenticationMode));
+      }
       break;
   }
+}
+
+function* authenticate(action: ActionModel) {
+  const authMessage: AuthenticationRequestMessageModel = {
+    type: MessageType.AUTHENTICATION_REQUEST,
+    secret: action.value as string,
+  };
+  localStorage.setItem('catchmail_secret', action.value);
+  yield put(sendMessageAction(authMessage));
 }
 
 function* connected() {
@@ -91,6 +117,7 @@ export default function* root(dispatch: (action: any) => void) {
   });
   yield takeEvery(ActionType.WS_CONNECTED, connected);
   yield takeEvery(ActionType.WS_DISCONNECTED, disconnected);
+  yield takeEvery(ActionType.AUTHENTICATE, authenticate);
 
   yield takeEvery(
     [ActionType.ADD_EMAIL, ActionType.REMOVE_EMAIL, ActionType.SELECT_EMAIL],

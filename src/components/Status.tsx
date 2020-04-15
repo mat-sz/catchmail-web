@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 
 import { StateType } from '../reducers';
 import { title } from '../config';
+import Authentication from './Authentication';
 
 const Status: React.FC = () => {
   const connected = useSelector((state: StateType) => state.connected);
@@ -15,6 +16,7 @@ const Status: React.FC = () => {
       {connected && !authenticated ? (
         <div className="status">Authenticating...</div>
       ) : null}
+      <Authentication />
     </>
   );
 };

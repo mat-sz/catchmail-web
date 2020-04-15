@@ -31,6 +31,13 @@ export function setAuthenticationRequiredAction(
   };
 }
 
+export function authenticateAction(secret: string): ActionModel {
+  return {
+    type: ActionType.AUTHENTICATE,
+    value: secret,
+  };
+}
+
 export function setClientIdAction(id: string): ActionModel {
   return {
     type: ActionType.SET_CLIENT_ID,
