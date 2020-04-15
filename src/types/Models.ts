@@ -12,6 +12,7 @@ export interface MessageModel {
 export interface WelcomeMessageModel extends MessageModel {
   type: MessageType.WELCOME;
   clientId: string;
+  authenticationMode: string;
 }
 
 export interface ErrorMessageModel extends MessageModel {
@@ -36,11 +37,23 @@ export interface PingMessageModel extends MessageModel {
   timestamp: number;
 }
 
+export interface AuthenticationRequestMessageModel extends MessageModel {
+  type: MessageType.AUTHENTICATION_REQUEST;
+  secret?: string;
+}
+
+export interface AuthenticationResponseMessageModel extends MessageModel {
+  type: MessageType.AUTHENTICATION_RESPONSE;
+  success: boolean;
+}
+
 export type Message =
   | WelcomeMessageModel
   | ErrorMessageModel
   | MailMessageModel
-  | PingMessageModel;
+  | PingMessageModel
+  | AuthenticationRequestMessageModel
+  | AuthenticationResponseMessageModel;
 
 export interface EmailModel {
   id: string;

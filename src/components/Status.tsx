@@ -6,11 +6,15 @@ import { title } from '../config';
 
 const Status: React.FC = () => {
   const connected = useSelector((state: StateType) => state.connected);
+  const authenticated = useSelector((state: StateType) => state.authenticated);
 
   return (
     <>
       <h1>{title}</h1>
-      {!connected ? <div className="disconnected">Connecting...</div> : null}
+      {!connected ? <div className="status">Connecting...</div> : null}
+      {connected && !authenticated ? (
+        <div className="status">Authenticating...</div>
+      ) : null}
     </>
   );
 };

@@ -15,6 +15,22 @@ export function setConnectedAction(connected: boolean): ActionModel {
   };
 }
 
+export function setAuthenticatedAction(authenticated: boolean): ActionModel {
+  return {
+    type: ActionType.SET_AUTHENTICATED,
+    value: authenticated,
+  };
+}
+
+export function setAuthenticationRequiredAction(
+  authenticationMode: string
+): ActionModel {
+  return {
+    type: ActionType.SET_AUTHENTICATION_REQUIRED,
+    value: authenticationMode,
+  };
+}
+
 export function setClientIdAction(id: string): ActionModel {
   return {
     type: ActionType.SET_CLIENT_ID,

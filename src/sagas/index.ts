@@ -6,6 +6,7 @@ import {
   EmailModel,
   PingMessageModel,
   Message,
+  AuthenticationRequestMessageModel,
 } from '../types/Models';
 import { ActionType } from '../types/ActionType';
 import { StateType } from '../reducers';
@@ -15,6 +16,8 @@ import {
   setClientIdAction,
   setConnectedAction,
   setErrorAction,
+  setAuthenticatedAction,
+  setAuthenticationRequiredAction,
 } from '../actions/state';
 import { MessageType } from '../types/MessageType';
 
@@ -24,6 +27,15 @@ function* message(action: ActionModel, dispatch: (action: any) => void) {
   switch (msg.type) {
     case MessageType.WELCOME:
       yield put(setClientIdAction(msg.clientId));
+      yield put(setAuthenticatedAction(false));
+      if (msg.authenticationMode === 'none') {
+        const authMessage: AuthenticationRequestMessageModel = {
+          type: MessageType.AUTHENTICATION_REQUEST,
+        };
+        yield put(sendMessageAction(authMessage));
+      } else {
+        yield put(setAuthenticationRequiredAction(msg.authenticationMode));
+      }
       break;
     case MessageType.MAIL:
       const email: EmailModel = {
@@ -45,11 +57,15 @@ function* message(action: ActionModel, dispatch: (action: any) => void) {
       };
       yield put(sendMessageAction(pongMessage));
       break;
+    case MessageType.AUTHENTICATION_RESPONSE:
+      yield put(setAuthenticatedAction(msg.success));
+      break;
   }
 }
 
 function* connected() {
   yield put(setConnectedAction(true));
+  yield put(setAuthenticatedAction(false));
 }
 
 function* disconnected() {

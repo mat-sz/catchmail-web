@@ -4,6 +4,8 @@ import { Store } from 'redux';
 
 export interface StateType {
   connected: boolean;
+  authenticated: boolean;
+  authenticationRequired: string;
   error?: string;
   clientId?: string;
   emails: EmailModel[];
@@ -12,6 +14,8 @@ export interface StateType {
 
 let initialState: StateType = {
   connected: false,
+  authenticated: false,
+  authenticationRequired: '',
   error: undefined,
   clientId: undefined,
   emails: [],
@@ -31,6 +35,12 @@ function applicationState(state = initialState, action: ActionModel) {
       break;
     case ActionType.SET_CONNECTED:
       newState.connected = action.value as boolean;
+      break;
+    case ActionType.SET_AUTHENTICATED:
+      newState.authenticated = action.value as boolean;
+      break;
+    case ActionType.SET_AUTHENTICATION_REQUIRED:
+      newState.authenticationRequired = action.value as string;
       break;
     case ActionType.SET_CLIENT_ID:
       newState.clientId = action.value as string;
