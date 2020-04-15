@@ -40,7 +40,6 @@ function applicationState(state = initialState, action: ActionModel) {
       newState.authenticated = action.value as boolean;
       break;
     case ActionType.SET_AUTHENTICATION_REQUIRED:
-      console.log(action);
       newState.authenticationRequired = action.value as string;
       break;
     case ActionType.SET_CLIENT_ID:
