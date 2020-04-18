@@ -4,7 +4,7 @@ Easy to use, self-hosted e-mail sending debugging tool with a React.js web inter
 
 ## Self-hosting
 
-A docker-compose configuration will be created once the project is stable.
+A docker-compose configuration is available in the [catchmail-docker](https://github.com/mat-sz/catchmail-docker) repository.
 
 Installation can be achieved without Docker as well:
 
