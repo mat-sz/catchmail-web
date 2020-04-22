@@ -15,6 +15,7 @@
     "@types/uuid": "^7.0.2",
     "clsx": "^1.1.0",
     "husky": "^4.2.3",
+    "letterparser": "^0.0.2",
     "lint-staged": "^10.0.9",
     "node-sass": "^4.13.1",
     "prettier": "^2.0.2",

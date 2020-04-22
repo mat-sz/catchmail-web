@@ -20,6 +20,7 @@ import {
   setAuthenticationRequiredAction,
 } from '../actions/state';
 import { MessageType } from '../types/MessageType';
+import { extract } from 'letterparser';
 
 function* message(action: ActionModel, dispatch: (action: any) => void) {
   const msg: Message = action.value as Message;
@@ -51,10 +52,16 @@ function* message(action: ActionModel, dispatch: (action: any) => void) {
       }
       break;
     case MessageType.MAIL:
+      if (!msg.raw) {
+        break;
+      }
+
+      const mail = extract(msg.raw);
       const email: EmailModel = {
         id: uuid(),
-        ...msg,
-        date: msg.date ? new Date(msg.date) : new Date(),
+        raw: msg.raw,
+        ...mail,
+        date: mail.date ? new Date(mail.date) : new Date(),
         read: false,
       };
 
