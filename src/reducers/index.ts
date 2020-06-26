@@ -18,7 +18,16 @@ let initialState: StateType = {
   authenticationRequired: '',
   error: undefined,
   clientId: undefined,
-  emails: [],
+  emails: [
+    {
+      date: new Date(),
+      id: 'test',
+      read: false,
+      from: 'test@test.com',
+      to: ['test@ccc.com'],
+      subject: 'hello',
+    },
+  ],
   selectedEmail: undefined,
 };
 

@@ -6,28 +6,28 @@ import { selectEmailAction } from '../actions/emails';
 import { EmailModel } from '../types/Models';
 import { StateType } from '../reducers';
 
-export interface EmailTableRowProps {
+export interface EmailListItemProps {
   email: EmailModel;
 }
 
-const EmailTableRow: React.FC<EmailTableRowProps> = ({ email }) => {
+const EmailListItem: React.FC<EmailListItemProps> = ({ email }) => {
   const selectedEmail = useSelector((state: StateType) => state.selectedEmail);
   const dispatch = useDispatch();
   const selectEmail = () => dispatch(selectEmailAction(email.id));
 
   return (
-    <tr
+    <li
       onClick={selectEmail}
       className={clsx({
         selected: selectedEmail?.id === email.id,
         read: email.read,
       })}
     >
-      <td>{email.from}</td>
-      <td>{email.to?.join(' ')}</td>
-      <td>{email.subject}</td>
-    </tr>
+      <span className="from">{email.from}</span>
+      <span className="date">{email.date.toDateString()}</span>
+      <span className="subject">{email.subject}</span>
+    </li>
   );
 };
 
-export default EmailTableRow;
+export default EmailListItem;

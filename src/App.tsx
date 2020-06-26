@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.scss';
 
-import EmailTable from './components/EmailTable';
+import EmailList from './components/EmailList';
 import EmailPreview from './components/EmailPreview';
 import Status from './components/Status';
 
@@ -10,7 +10,7 @@ const App: React.FC = () => {
     <div className="app">
       <div className="list">
         <Status />
-        <EmailTable />
+        <EmailList />
       </div>
       <EmailPreview />
     </div>
