@@ -15,7 +15,7 @@ export function removeEmailAction(emailId: string): ActionModel {
   };
 }
 
-export function selectEmailAction(emailId: string): ActionModel {
+export function selectEmailAction(emailId?: string): ActionModel {
   return {
     type: ActionType.SELECT_EMAIL,
     value: emailId,
