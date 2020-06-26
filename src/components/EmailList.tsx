@@ -7,6 +7,10 @@ import { StateType } from '../reducers';
 const EmailList: React.FC = () => {
   const emails = useSelector((state: StateType) => state.emails);
 
+  if (emails.length === 0) {
+    return <div className="empty">No emails received (yet).</div>;
+  }
+
   return (
     <ul>
       {emails.map(email => (
