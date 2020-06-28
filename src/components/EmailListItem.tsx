@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import TimeAgo from 'react-timeago';
 import clsx from 'clsx';
 
 import { selectEmailAction } from '../actions/emails';
@@ -24,7 +25,9 @@ const EmailListItem: React.FC<EmailListItemProps> = ({ email }) => {
       })}
     >
       <span className="from">{email.from}</span>
-      <span className="date">{email.date.toDateString()}</span>
+      <span className="date">
+        <TimeAgo date={email.date} />
+      </span>
       <span className="subject">{email.subject}</span>
     </li>
   );
