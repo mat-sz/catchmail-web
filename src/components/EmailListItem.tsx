@@ -1,12 +1,10 @@
 import React, { useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import TimeAgo from 'react-timeago';
 import { sanitize } from 'react-letter';
 import clsx from 'clsx';
 
-import { selectEmailAction } from '../actions/emails';
 import { EmailModel } from '../types/Models';
-import { StateType } from '../reducers';
 
 export interface EmailListItemProps {
   email: EmailModel;
@@ -24,9 +22,6 @@ function truncate(str: string, length: number, useWordBoundary = true) {
 }
 
 const EmailListItem: React.FC<EmailListItemProps> = ({ email }) => {
-  const selectedEmail = useSelector((state: StateType) => state.selectedEmail);
-  const dispatch = useDispatch();
-  const selectEmail = () => dispatch(selectEmailAction(email.id));
   const text = useMemo(() => {
     const sanitized = sanitize(email?.html || '', undefined, {
       dropAllHtmlTags: true,
@@ -37,18 +32,18 @@ const EmailListItem: React.FC<EmailListItemProps> = ({ email }) => {
 
   return (
     <li
-      onClick={selectEmail}
       className={clsx({
-        selected: selectedEmail?.id === email.id,
         read: email.read,
       })}
     >
-      <span className="from">{email.from}</span>
-      <span className="date">
-        <TimeAgo date={email.date} />
-      </span>
-      <span className="subject">{email.subject}</span>
-      <div className="body">{text}&hellip;</div>
+      <NavLink to={'/message/' + email.id} activeClassName="selected">
+        <span className="from">{email.from}</span>
+        <span className="date">
+          <TimeAgo date={email.date} />
+        </span>
+        <span className="subject">{email.subject}</span>
+        <div className="body">{text}&hellip;</div>
+      </NavLink>
     </li>
   );
 };

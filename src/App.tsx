@@ -1,28 +1,25 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { Switch, Route } from 'react-router-dom';
 import './App.scss';
 
 import EmailList from './components/EmailList';
 import EmailPreview from './components/EmailPreview';
 import Status from './components/Status';
-import { StateType } from './reducers';
-import clsx from 'clsx';
+import { Router } from './config';
 
 const App: React.FC = () => {
-  const selectedEmail = useSelector((state: StateType) => state.selectedEmail);
-
   return (
-    <div
-      className={clsx('app', {
-        'preview-visible': selectedEmail,
-      })}
-    >
-      <div className="list">
+    <Router>
+      <div className="app">
         <Status />
         <EmailList />
+        <Switch>
+          <Route path="/message/:id">
+            <EmailPreview />
+          </Route>
+        </Switch>
       </div>
-      <EmailPreview />
-    </div>
+    </Router>
   );
 };
 

@@ -1,26 +1,29 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Letter } from 'react-letter';
 import { FaRegArrowAltCircleLeft } from 'react-icons/fa';
+import { useParams, Link } from 'react-router-dom';
 
 import { StateType } from '../reducers';
-import { selectEmailAction } from '../actions/emails';
 
 const EmailPreview: React.FC = () => {
-  const selectedEmail = useSelector((state: StateType) => state.selectedEmail);
-  const dispatch = useDispatch();
+  const { id } = useParams<{ id: string }>();
+  const selectedEmail = useSelector((state: StateType) =>
+    state.emails.find(email => email.id === id)
+  );
   const [raw, setRaw] = useState(false);
   const toggleRaw = () => setRaw(raw => !raw);
-  const back = () => dispatch(selectEmailAction(undefined));
 
   if (!selectedEmail) return null;
 
   return (
     <div className="preview">
       <div className="title">
-        <button onClick={back} className="mobile-back">
-          <FaRegArrowAltCircleLeft aria-label="Back" />
-        </button>
+        <Link to="/">
+          <button className="mobile-back">
+            <FaRegArrowAltCircleLeft aria-label="Back" />
+          </button>
+        </Link>
         <h2>{selectedEmail.subject}</h2>
       </div>
       <div className="metadata">
