@@ -1,60 +1,58 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Letter } from 'react-letter';
 import { FaRegArrowAltCircleLeft } from 'react-icons/fa';
-import { useParams, Link, useHistory } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
 import { StateType } from '../reducers';
+import EmailList from './EmailList';
 
 const EmailPreview: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const history = useHistory();
 
   const selectedEmail = useSelector((state: StateType) =>
     state.emails.find(email => email.id === id)
   );
+
   const [raw, setRaw] = useState(false);
   const toggleRaw = () => setRaw(raw => !raw);
 
-  useEffect(() => {
-    if (!selectedEmail) {
-      history.push('/');
-    }
-  }, [selectedEmail, history]);
-
   if (!selectedEmail) {
-    return null;
+    return <EmailList />;
   }
 
   return (
-    <div className="preview">
-      <div className="title">
-        <Link to="/" className="mobile-back">
-          <FaRegArrowAltCircleLeft aria-label="Back" />
-        </Link>
-        <h2>{selectedEmail.subject}</h2>
-      </div>
-      <div className="metadata">
-        <div className="avatar">{selectedEmail.from?.charAt(0)}</div>
-        <div className="left">
-          <div>{selectedEmail.from}</div>
-          <div className="small">to {selectedEmail.to?.join(', ')}</div>
+    <>
+      <EmailList className="preview-visible" />
+      <div className="preview">
+        <div className="title">
+          <Link to="/" className="mobile-back">
+            <FaRegArrowAltCircleLeft aria-label="Back" />
+          </Link>
+          <h2>{selectedEmail.subject}</h2>
         </div>
-        <div className="right">
-          <div>{selectedEmail.date.toDateString()}</div>
-          <div>
-            <button onClick={toggleRaw}>
-              {raw ? 'Show HTML' : 'Show Raw'}
-            </button>
+        <div className="metadata">
+          <div className="avatar">{selectedEmail.from?.charAt(0)}</div>
+          <div className="left">
+            <div>{selectedEmail.from}</div>
+            <div className="small">to {selectedEmail.to?.join(', ')}</div>
+          </div>
+          <div className="right">
+            <div>{selectedEmail.date.toDateString()}</div>
+            <div>
+              <button onClick={toggleRaw}>
+                {raw ? 'Show HTML' : 'Show Raw'}
+              </button>
+            </div>
           </div>
         </div>
+        {!raw ? (
+          <Letter html={selectedEmail.html ?? ''} text={selectedEmail.text} />
+        ) : (
+          <pre>{selectedEmail.raw}</pre>
+        )}
       </div>
-      {!raw ? (
-        <Letter html={selectedEmail.html ?? ''} text={selectedEmail.text} />
-      ) : (
-        <pre>{selectedEmail.raw}</pre>
-      )}
-    </div>
+    </>
   );
 };
 

@@ -14,7 +14,6 @@ const App: React.FC = () => {
         <Status />
         <Switch>
           <Route path="/message/:id">
-            <EmailList className="preview-visible" />
             <EmailPreview />
           </Route>
           <Route>
