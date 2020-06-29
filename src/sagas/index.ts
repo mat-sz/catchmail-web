@@ -1,5 +1,4 @@
 import { put, takeEvery, select, call } from 'redux-saga/effects';
-import { v4 as uuid } from 'uuid';
 
 import {
   ActionModel,
@@ -58,7 +57,7 @@ function* message(action: ActionModel, dispatch: (action: any) => void) {
 
       const mail = extract(msg.raw);
       const email: EmailModel = {
-        id: uuid(),
+        id: msg.messageId,
         raw: msg.raw,
         ...mail,
         date: mail.date ? new Date(mail.date) : new Date(),

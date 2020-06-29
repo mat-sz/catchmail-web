@@ -21,6 +21,7 @@ export interface ErrorMessageModel extends MessageModel {
 }
 
 export interface MailMessageModel extends MessageModel {
+  messageId: string;
   type: MessageType.MAIL;
   raw?: string;
 }

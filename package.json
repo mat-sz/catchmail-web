@@ -13,7 +13,6 @@
     "@types/react-redux": "^7.1.7",
     "@types/react-router-dom": "^5.1.5",
     "@types/react-timeago": "^4.1.1",
-    "@types/uuid": "^7.0.2",
     "clsx": "^1.1.0",
     "husky": "^4.2.3",
     "letterparser": "^0.0.2",
@@ -31,8 +30,7 @@
     "redux": "^4.0.5",
     "redux-saga": "^1.1.3",
     "typescript": "~3.7.2",
-    "typesocket": "^1.0.0",
-    "uuid": "^7.0.2"
+    "typesocket": "^1.0.0"
   },
   "husky": {
     "hooks": {
