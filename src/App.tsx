@@ -12,10 +12,13 @@ const App: React.FC = () => {
     <Router>
       <div className="app">
         <Status />
-        <EmailList />
         <Switch>
           <Route path="/message/:id">
+            <EmailList className="preview-visible" />
             <EmailPreview />
+          </Route>
+          <Route>
+            <EmailList />
           </Route>
         </Switch>
       </div>

@@ -19,10 +19,8 @@ const EmailPreview: React.FC = () => {
   return (
     <div className="preview">
       <div className="title">
-        <Link to="/">
-          <button className="mobile-back">
-            <FaRegArrowAltCircleLeft aria-label="Back" />
-          </button>
+        <Link to="/" className="mobile-back">
+          <FaRegArrowAltCircleLeft aria-label="Back" />
         </Link>
         <h2>{selectedEmail.subject}</h2>
       </div>

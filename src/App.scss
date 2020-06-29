@@ -24,12 +24,6 @@ body {
   right: 0;
   bottom: 0;
 
-  &.preview-visible {
-    .list {
-      display: none;
-    }
-  }
-
   & > .status {
     position: absolute;
     top: 0;
@@ -77,6 +71,10 @@ body {
     position: relative;
     height: 100%;
     background: #fff;
+
+    &.preview-visible {
+      display: none;
+    }
 
     h1 {
       margin: 0;
@@ -221,10 +219,8 @@ body {
 
     .list {
       border-right: 2px solid #ccc;
-    }
 
-    &.preview-visible {
-      .list {
+      &.preview-visible {
         display: block;
       }
     }
