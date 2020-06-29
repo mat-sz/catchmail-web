@@ -1,20 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Letter } from 'react-letter';
 import { FaRegArrowAltCircleLeft } from 'react-icons/fa';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useHistory } from 'react-router-dom';
 
 import { StateType } from '../reducers';
 
 const EmailPreview: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+  const history = useHistory();
+
   const selectedEmail = useSelector((state: StateType) =>
     state.emails.find(email => email.id === id)
   );
   const [raw, setRaw] = useState(false);
   const toggleRaw = () => setRaw(raw => !raw);
 
-  if (!selectedEmail) return null;
+  useEffect(() => {
+    if (!selectedEmail) {
+      history.push('/');
+    }
+  }, [selectedEmail, history]);
+
+  if (!selectedEmail) {
+    return null;
+  }
 
   return (
     <div className="preview">
