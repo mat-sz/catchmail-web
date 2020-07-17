@@ -2,6 +2,12 @@
 
 Easy to use, self-hosted e-mail sending debugging tool with a React.js web interface. Fully written in TypeScript.
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/mat-sz/catchmail-web/master/screenshot.png" alt="Screenshot">
+</p>
+
+E-mail rendering provided by [react-letter](https://github.com/mat-sz/react-letter).
+
 ## Self-hosting
 
 A docker-compose configuration is available in the [catchmail-docker](https://github.com/mat-sz/catchmail-docker) repository.
