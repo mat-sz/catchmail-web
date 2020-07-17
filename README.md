@@ -8,6 +8,12 @@ Easy to use, self-hosted e-mail sending debugging tool with a React.js web inter
 
 E-mail rendering provided by [react-letter](https://github.com/mat-sz/react-letter).
 
+**Check other TypeScript e-mail projects:**
+
+| Rendering (React.js)                                   | Rendering (Vue.js)                                 | Parser                                                 | Inbound SMTP                                   |
+| ------------------------------------------------------ | -------------------------------------------------- | ------------------------------------------------------ | ---------------------------------------------- |
+| [react-letter](https://github.com/mat-sz/react-letter) | [vue-letter](https://github.com/mat-sz/vue-letter) | [letterparser](https://github.com/mat-sz/letterparser) | [microMTA](https://github.com/mat-sz/microMTA) |
+
 ## Self-hosting
 
 A docker-compose configuration is available in the [catchmail-docker](https://github.com/mat-sz/catchmail-docker) repository.
