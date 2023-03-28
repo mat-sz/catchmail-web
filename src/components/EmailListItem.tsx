@@ -1,10 +1,14 @@
 import React, { useMemo } from 'react';
 import { NavLink } from 'react-router-dom';
-import TimeAgo from 'react-timeago';
 import { sanitize } from 'lettersanitizer';
 import clsx from 'clsx';
 
 import { EmailModel } from '../types/Models';
+
+const formatter = new Intl.DateTimeFormat('en-US', {
+  dateStyle: 'short',
+  timeStyle: 'short',
+});
 
 export interface EmailListItemProps {
   email: EmailModel;
@@ -15,10 +19,10 @@ function truncate(str: string, length: number, useWordBoundary = true) {
     return str;
   }
 
-  const subString = str.substr(0, length - 1);
+  const shorter = str.substring(0, length - 1);
   return useWordBoundary
-    ? subString.substr(0, subString.lastIndexOf(' '))
-    : subString;
+    ? shorter.substring(0, shorter.lastIndexOf(' '))
+    : shorter;
 }
 
 const EmailListItem: React.FC<EmailListItemProps> = ({ email }) => {
@@ -36,11 +40,16 @@ const EmailListItem: React.FC<EmailListItemProps> = ({ email }) => {
         read: email.read,
       })}
     >
-      <NavLink to={'/message/' + email.id} activeClassName="selected">
+      <NavLink
+        to={'/message/' + email.id}
+        className={({ isActive }) =>
+          clsx({
+            selected: isActive,
+          })
+        }
+      >
         <span className="from">{email.from}</span>
-        <span className="date">
-          <TimeAgo date={email.date} />
-        </span>
+        <span className="date">{formatter.format(email.date)}</span>
         <span className="subject">{email.subject}</span>
         <div className="body">{text}&hellip;</div>
       </NavLink>

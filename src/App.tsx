@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import './App.scss';
 
 import EmailList from './components/EmailList';
@@ -12,14 +12,10 @@ const App: React.FC = () => {
     <Router>
       <div className="app">
         <Status />
-        <Switch>
-          <Route path="/message/:id">
-            <EmailPreview />
-          </Route>
-          <Route>
-            <EmailList />
-          </Route>
-        </Switch>
+        <Routes>
+          <Route path="/" element={<EmailList />} />
+          <Route path="/message/:id" element={<EmailPreview />} />
+        </Routes>
       </div>
     </Router>
   );
