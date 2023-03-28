@@ -105,9 +105,9 @@ function* disconnected() {
 }
 
 function* updateNotificationCount() {
-  const emails: EmailModel[] = (yield select(
+  const emails: EmailModel[] = ((yield select(
     (state: StateType) => state.emails
-  )).filter((email: EmailModel) => !email.read);
+  )) as EmailModel[]).filter(email => !email.read);
 
   if (emails.length > 0) {
     document.title = '(' + emails.length + ') ' + process.env.REACT_APP_TITLE;

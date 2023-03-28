@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { NavLink } from 'react-router-dom';
 import TimeAgo from 'react-timeago';
-import { sanitize } from 'react-letter';
+import { sanitize } from 'lettersanitizer';
 import clsx from 'clsx';
 
 import { EmailModel } from '../types/Models';
